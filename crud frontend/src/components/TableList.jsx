@@ -1,6 +1,6 @@
 
 
-const TableList = () => {
+const TableList = ({handleOpen}) => {
    const clients = [
   {
     name: "Joe",
@@ -59,7 +59,7 @@ const TableList = () => {
             </button>
         </td>
         <td>
-            <button className="btn btn-secondary">Update</button>
+            <button className="btn btn-secondary" onClick={() => handleOpen('edit')}>Update</button>
         </td>
         <td>
             <button className="btn btn-accent">Delete</button>
