@@ -24,11 +24,11 @@ const ModalForm = ({ isOpen, mode, onClose, onSubmits  }) => {
           <form  onSubmit={handleSubmit} method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <label className="input input-bordered flex my-4  items-center gap-2" >
-              Name
+             
               <input value={name} type="text" className="grow" placeholder="Name"  onChange={(e)=> setName(e.target.value)} />
             </label>
             <label className="input input-bordered my-4 flex items-center gap-2">
-              Email
+             
               <input value={email}  onChange={(e)=> setEmail(e.target.value)}
                 type="text"
                 className="grow"
@@ -36,7 +36,7 @@ const ModalForm = ({ isOpen, mode, onClose, onSubmits  }) => {
               />
             </label>
             <label className="input input-bordered flex items-center gap-2 my-4">
-              Job
+             
               <input value={job} onChange={(e)=> setJob(e.target.value)}
                 type="text"
                 className="grow"
@@ -45,7 +45,7 @@ const ModalForm = ({ isOpen, mode, onClose, onSubmits  }) => {
             </label>
             <div className="flex justify-between my-4 items-center gap-2">
               <label className="input input-bordered flex items-center gap-2">
-                Rate
+                
                 <input value={rate} type="text" className="grow" placeholder="Rate" onChange={(e)=> setRate(e.target.value)}/>
               </label>
               <select value={status? 'Active': 'Inactive'} className="select select-bordered w-full max-w-xs" onChange={handleStatus}>
