@@ -53,3 +53,9 @@ export const deleteClient = async(req, res) => {
 
     }
 }
+export const searchClients = async(req, res) => {
+    const searchTerm = req.query.q;
+    console.log(searchTerm, 'here you search bro');
+    const clients = await clientService.searchClients(searchTerm);
+    res.status(200).json(clients)
+}
