@@ -38,3 +38,18 @@ export const updateClient = async(req, res) => {
 
     }
 }
+export const deleteClient = async(req, res) => {
+    try {
+       const clientId = req.params.id 
+        const deleted = await clientService.deleteClient(clientId)
+       if(!deleted){
+        return res.status(404).json({message: 'Client Not Found'})
+       }
+    //    console.log({updateClient}, 'update client data');
+       return res.status(200).send({message: 'Client Deleted Successfully'})
+    } catch (error) {
+        console.log('Error from posting Data update client function',error);
+        res.status(500).json({message: 'Internal Server error'})
+
+    }
+}
