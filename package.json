@@ -1,0 +1,13 @@
+{
+  "name": "how-to-crud-with-postgresql",
+  "version": "1.0.0",
+ "main": "src/index.js",
+  "scripts": {
+  "build": "npm install --prefix crud-server && npm install --prefix crud-frontend && npm run build --prefix crud-frontend",
+    "start": "npm run start --prefix crud-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -1,5 +1,6 @@
 
 import axios from 'axios'
+import { baseURL } from '../lib/utilis';
 
 
 const TableList = ({handleOpen, searchTerm="", tableData, setTableData, error}) => {
@@ -10,7 +11,7 @@ const TableList = ({handleOpen, searchTerm="", tableData, setTableData, error}) 
     const confirmDelete = window.confirm('Are You Sure To Delete?');
     if(confirmDelete){
       try {
-        const response = await axios.delete(`http://localhost:3000/api/clients/${id}`);
+        const response = await axios.delete(`${baseURL}api/clients/${id}`);
         console.log(response.data);
         setTableData((prev) => prev.filter(client => client.id !== id))
       } catch (error) {
