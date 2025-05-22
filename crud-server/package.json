@@ -6,10 +6,10 @@
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
