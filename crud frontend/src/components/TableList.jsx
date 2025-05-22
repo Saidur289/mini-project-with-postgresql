@@ -17,32 +17,22 @@ const TableList = ({handleOpen, searchTerm=""}) => {
     };
     fetchData()
   }, [])
-//   {
-//     name: "Joe",
-//     work: "freelance-developer",
-//     blogs: "54",
-//     websites: "32",
-//     hackathons: "6",
-//     location: "morocco",
-//     id: "0",
-//     email: "joe@example.com",
-//     isActive: true,
-//     rate: 101
-//   },
-//   {
-//     name: "janet",
-//     work: "fullstack-developer",
-//     blogs: "34",
-//     websites: "12",
-//     hackathons: "8",
-//     location: "Mozambique",
-//     id: "1",
-//     email: "janet@example.com",
-//     isActive: false,
-//     rate: 103
-//   }
-// ];
+
+
    const filterData = tableData.filter(client => client.name.toLowerCase().includes(searchTerm.toLowerCase()) || client.job.toLowerCase().includes(searchTerm.toLowerCase())  || client.email.toLowerCase().includes(searchTerm.toLowerCase()))
+
+   const handleDelete = async(id) => {
+    const confirmDelete = window.confirm('Are You Sure To Delete?');
+    if(confirmDelete){
+      try {
+        const response = await axios.delete(`http://localhost:3000/api/clients/${id}`);
+        console.log(response.data);
+        setTableData((prev) => prev.filter(client => client.id !== id))
+      } catch (error) {
+        console.log('error from delete function', {error});
+      }
+    }
+   }
     return (
        <>
        {error && <div className="alert alert-error">{error}</div>}
@@ -78,7 +68,7 @@ const TableList = ({handleOpen, searchTerm=""}) => {
             <button className="btn btn-secondary" onClick={() => handleOpen('edit',client)}>Update</button>
         </td>
         <td>
-            <button className="btn btn-accent">Delete</button>
+            <button className="btn btn-accent" onClick={() => handleDelete(client.id)}>Delete</button>
         </td>
       </tr>
         )
