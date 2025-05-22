@@ -1,19 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const ModalForm = ({ isOpen, mode, onClose, onSubmits  }) => {
+const ModalForm = ({ isOpen, mode, onClose, onSubmits , clientData }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [rate, setRate] = useState('')
   const [status, setStatus] = useState(false)
   const [job, setJob] = useState('')
-  const handleStatus = (e) => {
-    if(status === 'active'){
-      setStatus(e.target.value)
+  const handleStatus = (status) => {
+    if(status === 'Active'){
+      setStatus(true)
     }
+    
+    console.log('clicked me', status);
   }
-  const handleSubmit = e => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
+    if(name !== '' || email !== ''|| job !== '' || rate !== ''){
+  try {
+      const clientData = {name, email, job, rate: Number(rate), isactive: status };
+      await onSubmits(clientData)
+     onClose()
+    } catch (error) {
+      console.log('Error From Modalform component', error);
+    }
+    }
+  
+     
   }
+  useEffect(() => {
+    if(mode === 'edit' && clientData){
+      setName(clientData.name);
+      setEmail(clientData.email);
+      setJob(clientData.job);
+      setRate(clientData.rate);
+      setStatus(clientData.isactive);
+    }else{
+      setName('');
+      setEmail('');
+      setJob('')
+      setRate('')
+      setStatus(false)
+    }
+  
+ 
+  }, [mode, clientData])
+  
   return (
     <>
       <dialog id="my_modal_3" className="modal" open={isOpen}>
@@ -40,7 +71,7 @@ const ModalForm = ({ isOpen, mode, onClose, onSubmits  }) => {
               <input value={job} onChange={(e)=> setJob(e.target.value)}
                 type="text"
                 className="grow"
-                placeholder="daisy@site.com"
+                placeholder="Your Job"
               />
             </label>
             <div className="flex justify-between my-4 items-center gap-2">
@@ -48,8 +79,8 @@ const ModalForm = ({ isOpen, mode, onClose, onSubmits  }) => {
                 
                 <input value={rate} type="text" className="grow" placeholder="Rate" onChange={(e)=> setRate(e.target.value)}/>
               </label>
-              <select value={status? 'Active': 'Inactive'} className="select select-bordered w-full max-w-xs" onChange={handleStatus}>
-                <option disabled selected>
+              <select  className="select select-bordered w-full max-w-xs" onChange={(e) => handleStatus(e.target.value)}>
+                <option disabled defaultValue={status? 'Active': "InActive"}>
                   Select Status
                 </option>
                 <option>Active</option>
@@ -62,7 +93,7 @@ const ModalForm = ({ isOpen, mode, onClose, onSubmits  }) => {
             >
               ✕
             </button>
-            <button onClick={onClose} className="btn btn-success">
+            <button  className="btn btn-success">
               {mode === "edit" ? "Save Changes" : "Add Client"}
             </button>
           </form>

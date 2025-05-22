@@ -3,7 +3,7 @@ import { useState } from "react"
 import axios from 'axios'
 
 
-const TableList = ({handleOpen}) => {
+const TableList = ({handleOpen, searchTerm=""}) => {
   const [tableData, setTableData] = useState([])
   const [error, setError] = useState('')
   useEffect(() => {
@@ -42,7 +42,7 @@ const TableList = ({handleOpen}) => {
 //     rate: 103
 //   }
 // ];
-
+   const filterData = tableData.filter(client => client.name.toLowerCase().includes(searchTerm.toLowerCase()) || client.job.toLowerCase().includes(searchTerm.toLowerCase())  || client.email.toLowerCase().includes(searchTerm.toLowerCase()))
     return (
        <>
        {error && <div className="alert alert-error">{error}</div>}
@@ -61,7 +61,7 @@ const TableList = ({handleOpen}) => {
     <tbody  className="hover">
       {/* row 1 */}
      {
-        tableData.map((client, index) => 
+        filterData.map((client, index) => 
                <tr key={client.id}>
         <th>{index + 1}</th>
         <td>{client.name}</td>
@@ -70,12 +70,12 @@ const TableList = ({handleOpen}) => {
         <td>
             <button className={`btn rounded-full w-20 ${client.isActive? 'btn btn-primary': 'btn btn-outline btn-primary'}` }>
                 {
-                    client.isActive? 'Active' : 'Inactive'
+                    client.isactive? 'Active' : 'Inactive'
                 }
             </button>
         </td>
         <td>
-            <button className="btn btn-secondary" onClick={() => handleOpen('edit')}>Update</button>
+            <button className="btn btn-secondary" onClick={() => handleOpen('edit',client)}>Update</button>
         </td>
         <td>
             <button className="btn btn-accent">Delete</button>

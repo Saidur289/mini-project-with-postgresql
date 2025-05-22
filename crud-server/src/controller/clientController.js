@@ -30,7 +30,7 @@ export const updateClient = async(req, res) => {
        if(!updateClient){
         return res.status(400).json({message: 'Client Not Found'})
        }
-    //    console.log({updateClient}, 'update client data');
+       console.log({updateClient}, 'update client data');
        return res.status(200).json(updateClient)
     } catch (error) {
         console.log('Error from posting Data update client function',error);
