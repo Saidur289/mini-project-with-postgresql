@@ -1,12 +1,12 @@
 import 'dotenv/config'
-// const express = require('express')
 import clientRoutes from './routes/clientRoutes.js'
-// const cors = require('cors')
 import path from 'path';
 import express from 'express'
 import cors from 'cors'
+
 const app = express()
 const port = 3000;
+const __dirname = path.resolve();
 app.use(cors())
 app.use(express.json())
 app.get('/', (req, res) => {
